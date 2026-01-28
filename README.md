@@ -40,3 +40,17 @@ Low Leakage analog pads (< 1 nA) are required for **Vin-** and **Vin+** to minim
 
 ## Status
 Currently working on the design to improve the BPF (Bandpass Filter) and the INA (Instrumentation Amplifier) performance in simulations.
+
+## References
+
+Sharma, D., Nath, V. Design of a novel CMOS instrumentation amplifier using 90 nm technology. Microsyst Technol 31, 447–459 (2025). https://doi.org/10.1007/s00542-024-05739-3
+
+Choi, J.; Kweon, S.-J.; Jeon, H. Single-Stage CMOS Operational Transconductance Amplifiers (OTAs): A Design Tutorial. Electronics 2023, 12, 3833. https://doi.org/10.3390/electronics12183833
+
+I. Y. I. AbuShawish, S. A. Mahmoud, S. Majzoub and A. J. Hussain, "Biomedical Amplifiers Design Based on Pseudo-Resistors: A Review," in IEEE Sensors Journal, vol. 23, no. 14, pp. 15225-15238, 15 July15, 2023, doi: 10.1109/JSEN.2023.3280668
+
+R. R. Harrison and C. Charles, "A low-power low-noise CMOS amplifier for neural recording applications," in IEEE Journal of Solid-State Circuits, vol. 38, no. 6, pp. 958-965, June 2003, doi: 10.1109/JSSC.2003.811979
+
+
+
+

@@ -1,0 +1,10 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: ** sch_path: /home/designer/shared/design/cclna/currentmirror-ota.sch
+
+Error: unknown subckt: xm4 net1 net1 vdd vdd sg13_lv_pmos w=4u l=1u ng=1 m=1
+    in line no. 9 from file /home/designer/shared/Design/CCLNA/simulations/CurrentMirror-OTA.spice
+    Simulation interrupted due to error!
+

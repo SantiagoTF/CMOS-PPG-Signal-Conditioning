@@ -1,0 +1,82 @@
+** sch_path: /home/designer/shared/Design/CCLNA/testbench_CCL.sch
+**.subckt testbench_CCL
+E1 Vin- net2 net1 VSS -0.5
+E2 Vin+ net2 net1 VSS 0.5
+V1 net2 GND 0.75
+V2 net1 GND dc 0 ac 1 sin(0 10m 1k)
+V3 VDD GND 1.5
+V4 VSS GND 0
+I0 VDD net3 20n
+CLoad VOut VSS 1p m=1
+x1 VDD net4 net5 net3 VOut VSS CurrentMirror-OTA
+XC1 net4 Vin+ cap_cmim w=8.15e-6 l=8.15e-6 m=1
+XC2 net5 Vin- cap_cmim w=8.15e-6 l=8.15e-6 m=1
+XM1 net5 net5 net7 VDD sg13_lv_pmos w=1u l=8u ng=1 m=3
+XC3 VOut net5 cap_cmim w=8.15e-6 l=8.15e-6 m=1
+XC4 net4 VSS cap_cmim w=8.15e-6 l=8.15e-6 m=1
+XM4 net6 net6 VSS VDD sg13_lv_pmos w=1u l=8u ng=1 m=3
+V5 Vref GND 0.75
+XM2 net7 net7 VOut VDD sg13_lv_pmos w=1u l=8u ng=1 m=3
+XM3 net4 net4 net6 VDD sg13_lv_pmos w=1u l=8u ng=1 m=3
+**** begin user architecture code
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+
+
+
+.param temp=27
+.save all
+
++ @n.xm2.nsg13_lv_pmos[ids]
++ @n.xm3.nsg13_lv_pmos[ids]
+
+.control
+  ac dec 20 0.1 111k
+  set filetype = ascii
+  set units=degrees
+  write testbench_CCL.raw vdb(vout) vp(vout)
+  set appendwrite
+  op
+  set filetype = ascii
+  write testbench_CCL.raw
+
+  * tran 0.1m 11111m
+  * set filetype = ascii
+  * write testbench_CCL.raw v(vin+) v(vin-) v(vout)
+  * set appendwrite
+  * op
+  * set filetype = ascii
+  * write testbench_CCL.raw
+
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  CurrentMirror-OTA.sym # of pins=6
+** sym_path: /home/designer/shared/Design/CCLNA/CurrentMirror-OTA.sym
+** sch_path: /home/designer/shared/Design/CCLNA/CurrentMirror-OTA.sch
+.subckt CurrentMirror-OTA VDD V+ V- IBias VOUT VSS
+*.iopin VDD
+*.iopin VSS
+*.ipin V-
+*.opin VOUT
+*.ipin V+
+*.ipin IBias
+XM4 net1 net1 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+XM3 net4 net1 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=3
+XM5 net2 net2 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+XM6 VOUT net2 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=3
+XM7 net1 V- net3 net3 sg13_lv_nmos w=8u l=1u ng=1 m=1
+XM8 net2 V+ net3 net3 sg13_lv_nmos w=8u l=1u ng=1 m=1
+XM9 net3 IBias VSS VSS sg13_lv_nmos w=2u l=1u ng=1 m=1
+XM10 IBias IBias VSS VSS sg13_lv_nmos w=2u l=1u ng=1 m=1
+XM11 net4 net4 VSS VSS sg13_lv_nmos w=3u l=1u ng=1 m=1
+XM12 VOUT net4 VSS VSS sg13_lv_nmos w=3u l=1u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.end

@@ -1,0 +1,20 @@
+** sch_path: /home/designer/shared/Design/CCLNA/CurrentMirror-OTA.sch
+**.subckt CurrentMirror-OTA VDD V+ V- IBias VOUT VSS
+*.iopin VDD
+*.iopin VSS
+*.ipin V-
+*.opin VOUT
+*.ipin V+
+*.ipin IBias
+XM4 net1 net1 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+XM3 net4 net1 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=3
+XM5 net2 net2 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+XM6 VOUT net2 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=3
+XM7 net1 V- net3 net3 sg13_lv_nmos w=1u l=1u ng=1 m=1
+XM8 net2 V+ net3 net3 sg13_lv_nmos w=1u l=1u ng=1 m=1
+XM9 net3 IBias VSS VSS sg13_lv_nmos w=2u l=1u ng=1 m=1
+XM10 IBias IBias VSS VSS sg13_lv_nmos w=2u l=1u ng=1 m=1
+XM11 net4 net4 VSS VSS sg13_lv_nmos w=3u l=1u ng=1 m=1
+XM12 VOUT net4 VSS VSS sg13_lv_nmos w=3u l=1u ng=1 m=1
+**.ends
+.end

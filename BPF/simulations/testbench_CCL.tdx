@@ -1,0 +1,17 @@
+tEDAx v1
+begin netlist v1 testbench_CCL
+ value CLoad 5p
+#subcircuit CurrentMirror-OTA x1
+#map VDD -> VDD
+#map V+ -> net4
+#map V- -> net5
+#map IBias -> net3
+#map VOUT -> VOut
+#map VSS -> VSS
+ conn VOut CLoad 1
+ pinname CLoad 1 p
+ conn VSS CLoad 2
+ pinname CLoad 2 m
+ footprint CLoad 1206
+ device CLoad ceramic\ capacitor
+end netlist

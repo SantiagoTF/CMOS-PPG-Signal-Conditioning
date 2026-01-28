@@ -1,0 +1,94 @@
+** sch_path: /home/designer/shared/Design/CA_INA/testbench_ina.sch
+**.subckt testbench_ina VOut
+*.opin VOut
+x1 VDD net12 net4 net9 net3 VSS CurrentMirror-OTA
+x2 VDD net13 net5 net10 net6 VSS CurrentMirror-OTA
+x3 VDD net8 net7 net11 VOut VSS CurrentMirror-OTA
+E1 Vin- net2 net1 VSS -0.5
+E2 Vin+ net2 net1 VSS 0.5
+V1 net2 GND 0.75
+V2 net1 GND dc 0 ac 1 sin(0 10m 1k)
+V3 VDD GND 1.5
+V4 VSS GND 0
+V5 Vref GND 0.75
+XM1 net3 net4 net4 net4 sg13_lv_nmos w=0.22u l=0.2u ng=1 m=1
+XM2 net4 net5 net5 net5 sg13_lv_nmos w=20u l=0.2u ng=4 m=1
+XM3 net5 net6 net6 net6 sg13_lv_nmos w=0.22u l=0.2u ng=1 m=1
+XM4 net3 net7 net7 net7 sg13_lv_nmos w=45u l=0.2u ng=9 m=1
+XM5 net7 GND GND GND sg13_lv_nmos w=0.22u l=0.2u ng=1 m=1
+XM7 net6 net8 net8 net8 sg13_lv_nmos w=45u l=0.2u ng=9 m=1
+XM8 net8 GND GND GND sg13_lv_nmos w=0.22u l=0.2u ng=1 m=1
+I0 VDD net9 2u
+I1 VDD net10 2u
+I2 VDD net11 2u
+XC1 net12 Vin+ cap_cmim w=8.15e-6 l=8.15e-6 m=1
+XC2 net13 Vin- cap_cmim w=8.15e-6 l=8.15e-6 m=1
+**** begin user architecture code
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+
+
+
+.param temp=27
+.save all
+
+.save @n.xm1.nsg13_lv_nmos[gds]
+.save @n.xm2.nsg13_lv_nmos[gds]
+.save @n.xm3.nsg13_lv_nmos[gds]
+.save @n.xm4.nsg13_lv_nmos[gds]
+.save @n.xm5.nsg13_lv_nmos[gds]
+.save @n.xm7.nsg13_lv_nmos[gds]
+.save @n.xm8.nsg13_lv_nmos[gds]
+
+
+
+.control
+   ac dec 20 0.1 21meg
+   set filetype = ascii
+   set units=degrees
+   write testbench_ina.raw vdb(vout) vp(vout)
+   set appendwrite
+   op
+   set filetype = ascii
+   write testbench_ina.raw
+
+  * tran 0.1u 2111u
+  * set filetype = ascii
+  * write testbench_ina.raw v(vin+) v(vin-) v(vout)
+  * set appendwrite
+  * op
+  * set filetype = ascii
+  * write testbench_ina.raw
+
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  /home/designer/shared/Design/CCLNA/CurrentMirror-OTA.sym # of pins=6
+** sym_path: /home/designer/shared/Design/CCLNA/CurrentMirror-OTA.sym
+** sch_path: /home/designer/shared/Design/CCLNA/CurrentMirror-OTA.sch
+.subckt CurrentMirror-OTA VDD V+ V- IBias VOUT VSS
+*.iopin VDD
+*.iopin VSS
+*.ipin V-
+*.opin VOUT
+*.ipin V+
+*.ipin IBias
+XM4 net1 net1 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+XM3 net4 net1 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=3
+XM5 net2 net2 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+XM6 VOUT net2 VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=3
+XM7 net1 V- net3 net3 sg13_lv_nmos w=8u l=1u ng=1 m=1
+XM8 net2 V+ net3 net3 sg13_lv_nmos w=8u l=1u ng=1 m=1
+XM9 net3 IBias VSS VSS sg13_lv_nmos w=2u l=1u ng=1 m=1
+XM10 IBias IBias VSS VSS sg13_lv_nmos w=2u l=1u ng=1 m=1
+XM11 net4 net4 VSS VSS sg13_lv_nmos w=3u l=1u ng=1 m=1
+XM12 VOUT net4 VSS VSS sg13_lv_nmos w=3u l=1u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.end
